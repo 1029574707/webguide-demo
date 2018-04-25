@@ -40,4 +40,19 @@ public class UserAccountProvider {
             }
         }.toString();
     }
+
+
+    public String insertUser(UserAccountEntity userAccountEntity){
+        return new SQL(){
+            {
+                INSERT_INTO(USERACCOUNTTABLE);
+                VALUES("user_id", userAccountEntity.getUserId());
+                VALUES("user_name", userAccountEntity.getUserName());
+                VALUES("login_name", userAccountEntity.getLoginName());
+                VALUES("password", userAccountEntity.getPassword());
+                VALUES("role", userAccountEntity.getRole().toString());
+                VALUES("job_number", userAccountEntity.getJobId());
+            }
+        }.toString();
+    }
 }

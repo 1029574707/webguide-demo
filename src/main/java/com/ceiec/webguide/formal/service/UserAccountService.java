@@ -18,4 +18,8 @@ public interface UserAccountService {
     void updateUserAccount(UserAccountEntity userAccount);
 
     String updateUserAvatar(String avatarCode, String userId);
+
+    String insertUserAccount(UserAccountEntity userAccount);
+
+    void setUserDeleted(String userId);
 }

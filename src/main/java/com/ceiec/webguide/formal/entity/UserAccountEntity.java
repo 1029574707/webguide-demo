@@ -26,13 +26,13 @@ public class UserAccountEntity implements Serializable {
     private String password;
 
     //用户角色
-    private int role;
+    private Integer role;
 
     //工号
     private String jobId;
 
     //部门
-    private int department;
+    private Integer department;
 
     //联系地址
     private String address;
@@ -81,11 +81,11 @@ public class UserAccountEntity implements Serializable {
         this.password = password;
     }
 
-    public int getRole() {
+    public Integer getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Integer role) {
         this.role = role;
     }
 
@@ -97,11 +97,11 @@ public class UserAccountEntity implements Serializable {
         this.jobId = jobId;
     }
 
-    public int getDepartment() {
+    public Integer getDepartment() {
         return department;
     }
 
-    public void setDepartment(int department) {
+    public void setDepartment(Integer department) {
         this.department = department;
     }
 
@@ -145,7 +145,7 @@ public class UserAccountEntity implements Serializable {
         this.deleted = deleted;
     }
 
-    public UserAccountEntity(String userId, String userName, String loginName, String password, int role, String jobId, int department, String address, String contact, String signature, String avatar, int deleted) {
+    public UserAccountEntity(String userId, String userName, String loginName, String password, Integer role, String jobId, Integer department, String address, String contact, String signature, String avatar, int deleted) {
         this.userId = userId;
         this.userName = userName;
         this.loginName = loginName;

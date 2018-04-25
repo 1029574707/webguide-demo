@@ -46,4 +46,17 @@ public class UserAccountController {
         String avatarUrl = userAccountService.updateUserAvatar(avatarJson.getString("avatarCode"), userId);
         return new ResponseContent(MessageType.SUCCESS, avatarUrl);
     }
+
+    @PostMapping(value = "/addUser")
+    public ResponseContent insertUserAccount(@RequestBody UserAccountEntity userAccount) {
+        String userId = userAccountService.insertUserAccount(userAccount);
+        return new ResponseContent(MessageType.SUCCESS, userId);
+    }
+
+    @DeleteMapping(value = "/deleteUser")
+    public ResponseContent deleteUserAccount(@RequestBody JSONObject userIdJson){
+        String userId = userIdJson.getString("userId");
+        userAccountService.setUserDeleted(userId);
+        return new ResponseContent(MessageType.SUCCESS);
+    }
 }

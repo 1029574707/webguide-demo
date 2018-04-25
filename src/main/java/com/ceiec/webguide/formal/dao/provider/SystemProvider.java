@@ -27,6 +27,8 @@ public class SystemProvider {
                 if (role != null){
                     WHERE(" role = #{role} ");
                 }
+                // only select the not deleted accounts
+                WHERE(" deleted = 0 ");
             }
         }.toString();
 

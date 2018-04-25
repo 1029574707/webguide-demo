@@ -63,4 +63,21 @@ public interface UserAccountDao {
      */
     @Update("update " + USERACCOUNTTABLE + " set avatar = #{avatar} where user_id = #{userId}")
     void updateAvatar(@Param("avatar") String avatar, @Param("userId") String userId);
+
+
+    /**
+     * 新增用户
+     *
+     * @param userAccountEntity 新增的用户
+     */
+    @InsertProvider(type = UserAccountProvider.class, method = "insertUser")
+    void insertUser(UserAccountEntity userAccountEntity);
+
+    /**
+     * 将用户设置为已删除状态
+     *
+     * @param userId 要删除的用户id
+     */
+    @Update("update " + USERACCOUNTTABLE + " set deleted = 1 where user_id = #{userId}")
+    void setUserDeleted(@Param("userId") String userId);
 }

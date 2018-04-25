@@ -74,4 +74,20 @@ public class UserAccountServiceImpl implements UserAccountService {
         //返回头像url
         return avatarUrl;
     }
+
+    @Override
+    public String insertUserAccount(UserAccountEntity userAccount) {
+        //generate userId by UUID
+        String userId = UUID.randomUUID().toString().replaceAll("-", "");
+        userAccount.setUserId(userId);
+
+        userAccountDao.insertUser(userAccount);
+
+        return userId;
+    }
+
+    @Override
+    public void setUserDeleted(String userId) {
+        userAccountDao.setUserDeleted(userId);
+    }
 }
