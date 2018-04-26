@@ -1,13 +1,14 @@
 package com.ceiec.webguide.formal.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ceiec.webguide.formal.dao.SystemDao;
-import com.ceiec.webguide.formal.entity.SysLogEntity;
 import com.ceiec.webguide.formal.entity.SysParamEntity;
 import com.ceiec.webguide.formal.entity.UserAccountEntity;
 import com.ceiec.webguide.formal.page.PagedItemsVO;
 import com.ceiec.webguide.formal.service.SystemService;
 import com.ceiec.webguide.formal.utils.PageUtil;
+import com.ceiec.webguide.formal.vo.SysLogVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,17 +49,30 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public void updateSysParam(JSONObject paramInfoJson) {
-
+    public void updateSysParam(JSONArray paramInfoArray) {
+        for (Object paramInfo : paramInfoArray) {
+            JSONObject paramInfoJson = (JSONObject) paramInfo;
+            String name = paramInfoJson.getString("name");
+            Object value = paramInfoJson.get("value");
+            systemDao.updateSysParam(name, value);
+        }
     }
 
     @Override
-    public List<SysLogEntity> getSysLogsWithCondition(JSONObject condition) {
-        return null;
+    public PagedItemsVO<SysLogVO> getSysLogsWithCondition(JSONObject condition) {
+        List<SysLogVO> sysLogs = systemDao.getSysLogsWithCondition(condition);
+        int totalCount = systemDao.countUsersWithCondition(condition);
+        int pageIndex =  condition.getInteger("start");
+        int size = condition.getInteger("size");
+        return PageUtil.createPageMsg(totalCount, pageIndex, size, sysLogs);
     }
 
     @Override
-    public List<SysLogEntity> getTodaySysLogsWithCondition(JSONObject condition) {
-        return null;
+    public PagedItemsVO<SysLogVO> getTodaySysLogsWithCondition(JSONObject condition) {
+        List<SysLogVO> sysLogs = systemDao.getTodaySysLogsWithCondition(condition);
+        int totalCount = systemDao.countUsersWithCondition(condition);
+        int pageIndex =  condition.getInteger("start");
+        int size = condition.getInteger("size");
+        return PageUtil.createPageMsg(totalCount, pageIndex, size, sysLogs);
     }
 }

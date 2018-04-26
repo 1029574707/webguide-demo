@@ -27,7 +27,7 @@ public interface UserAccountDao {
             @Result(column = "user_name", property = "userName"),
             @Result(column = "login_name", property = "loginName"),
             @Result(column = "job_number", property = "jobId"),
-            @Result(column = "systemMode", property = "systemMode")})
+            @Result(column = "system_mode", property = "systemMode")})
     UserAccountVo selectAccountById(@Param("userAccountId") String userAccountId);
 
     /**

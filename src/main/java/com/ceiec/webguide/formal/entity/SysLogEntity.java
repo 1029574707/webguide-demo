@@ -1,7 +1,6 @@
 package com.ceiec.webguide.formal.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * CreateDate: 2018/4/24 <br/>
@@ -18,9 +17,9 @@ public class SysLogEntity implements Serializable{
 
     private String logContent;
 
-    private String operatorId;
+    private String operator;
 
-    private Date operateTime;
+    private String operationTime;
 
     public Integer getLogId() {
         return logId;
@@ -46,30 +45,30 @@ public class SysLogEntity implements Serializable{
         this.logContent = logContent;
     }
 
-    public String getOperatorId() {
-        return operatorId;
+    public String getOperator() {
+        return operator;
     }
 
-    public void setOperatorId(String operatorId) {
-        this.operatorId = operatorId;
+    public void setOperator(String operator) {
+        this.operator = operator;
     }
 
-    public Date getOperateTime() {
-        return operateTime;
+    public String getOperationTime() {
+        return operationTime;
     }
 
-    public void setOperateTime(Date operateTime) {
-        this.operateTime = operateTime;
+    public void setOperationTime(String operationTime) {
+        this.operationTime = operationTime;
     }
 
     @Override
     public String toString() {
-        return "SysLogEntity{" +
+        return "SysLogVO{" +
                 "logId=" + logId +
                 ", taskId='" + taskId + '\'' +
                 ", logContent='" + logContent + '\'' +
-                ", operatorId='" + operatorId + '\'' +
-                ", operateTime=" + operateTime +
+                ", operator='" + operator + '\'' +
+                ", operationTime=" + operationTime +
                 '}';
     }
 }
