@@ -28,7 +28,7 @@ public interface SystemDao {
     @SelectProvider(type = UserAccountProvider.class, method = "getUsersWithCondition")
     @Results({@Result(column = "user_id", property = "userId"),
             @Result(column = "user_name", property = "userName"),
-            @Result(column = "login_name", property = "loginName"),
+            @Result(column = "real_name", property = "realName"),
             @Result(column = "job_number", property = "jobId")})
     List<UserAccountEntity> getUsersWithCondition(JSONObject condition);
 
@@ -37,9 +37,9 @@ public interface SystemDao {
      *
      * @return list- parameters
      */
-    @Select("select * from " + SYSTEMLOGTABLE)
+    @Select("select * from " + SYSTEMPARAMTABLE)
     @Results({@Result(column = "parameter_id", property = "parameterId"),
-            @Result(column = "parameter_name", property = "parameterName"),
+            @Result(column = "parameter_name", property = "name"),
             @Result(column = "operate_role", property = "operateRoles"),
             @Result(column = "system_mode", property = "systemMode")})
     List<SysParamEntity> getAllSysParam();

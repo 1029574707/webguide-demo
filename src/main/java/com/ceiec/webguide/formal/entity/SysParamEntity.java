@@ -13,7 +13,7 @@ public class SysParamEntity implements Serializable{
 
     private Integer parameterId;
 
-    private String parameterName;
+    private String name;
 
     private double value;
 
@@ -29,12 +29,12 @@ public class SysParamEntity implements Serializable{
         this.parameterId = parameterId;
     }
 
-    public String getParameterName() {
-        return parameterName;
+    public String getName() {
+        return name;
     }
 
-    public void setParameterName(String parameterName) {
-        this.parameterName = parameterName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getValue() {
@@ -65,7 +65,7 @@ public class SysParamEntity implements Serializable{
     public String toString() {
         return "SysParamEntity{" +
                 "parameterId=" + parameterId +
-                ", parameterName='" + parameterName + '\'' +
+                ", name='" + name + '\'' +
                 ", value=" + value +
                 ", operateRoles=" + operateRoles +
                 ", systemMode=" + systemMode +

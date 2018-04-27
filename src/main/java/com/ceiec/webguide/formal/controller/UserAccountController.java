@@ -23,11 +23,8 @@ public class UserAccountController {
     UserAccountService userAccountService;
 
 
-    @PostMapping(value = "/getUserInfo")
-    public ResponseContent getUserInfo() {
-        //保留获取userId的逻辑
-        String userId = "ABCDEFGHIGKLMNOPQRSTUVWXYZ123456";
-
+    @GetMapping(value = "/getUserInfo/{userId}")
+    public ResponseContent getUserInfo(@PathVariable("userId") String userId) {
         UserAccountVo userAccountVo = userAccountService.findUserAccountById(userId);
         return new ResponseContent(MessageType.SUCCESS, userAccountVo);
     }
@@ -41,6 +38,7 @@ public class UserAccountController {
     @PostMapping(value = "/updateUserAvatar")
     public ResponseContent updateUserAvatar(@RequestBody JSONObject avatarJson) {
         //保留获取userId的逻辑
+        //String userId = "1decccc28231490f993102c30b446e0d";
         String userId = "ABCDEFGHIGKLMNOPQRSTUVWXYZ123456";
 
         String avatarUrl = userAccountService.updateUserAvatar(avatarJson.getString("avatarCode"), userId);
@@ -53,9 +51,8 @@ public class UserAccountController {
         return new ResponseContent(MessageType.SUCCESS, userId);
     }
 
-    @DeleteMapping(value = "/deleteUser")
-    public ResponseContent deleteUserAccount(@RequestBody JSONObject userIdJson){
-        String userId = userIdJson.getString("userId");
+    @DeleteMapping(value = "/deleteUser/{userId}")
+    public ResponseContent deleteUserAccount(@PathVariable("userId") String userId){
         userAccountService.setUserDeleted(userId);
         return new ResponseContent(MessageType.SUCCESS);
     }

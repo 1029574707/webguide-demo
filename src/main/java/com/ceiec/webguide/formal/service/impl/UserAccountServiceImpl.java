@@ -80,9 +80,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         //generate userId by UUID
         String userId = UUID.randomUUID().toString().replaceAll("-", "");
         userAccount.setUserId(userId);
-
         userAccountDao.insertUser(userAccount);
-
         return userId;
     }
 

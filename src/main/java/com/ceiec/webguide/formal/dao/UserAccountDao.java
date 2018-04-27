@@ -25,9 +25,10 @@ public interface UserAccountDao {
     @Select("select u.*, r.system_mode from g_bs_user_account_info u, g_di_user_role r where u.user_id = #{userAccountId} and u.role = r.role_id")
     @Results({@Result(column = "user_id", property = "userId"),
             @Result(column = "user_name", property = "userName"),
-            @Result(column = "login_name", property = "loginName"),
+            @Result(column = "real_name", property = "realName"),
             @Result(column = "job_number", property = "jobId"),
-            @Result(column = "system_mode", property = "systemMode")})
+            @Result(column = "system_mode", property = "systemMode"),
+            @Result(column = "contact", property = "mobile")})
     UserAccountVo selectAccountById(@Param("userAccountId") String userAccountId);
 
     /**
@@ -40,8 +41,9 @@ public interface UserAccountDao {
     @Select("select * from g_bs_user_account_info where user_id = #{userAccountId}")
     @Results({@Result(column = "user_id", property = "userId"),
             @Result(column = "user_name", property = "userName"),
-            @Result(column = "login_name", property = "loginName"),
+            @Result(column = "real_name", property = "realName"),
             @Result(column = "job_number", property = "jobId"),
+            @Result(column = "contact", property = "mobile"),
             @Result(column = "role", property = "systemMode",
                     one = @One(select = "com.ceiec.webguide.formal.mapper.RoleDao.findSysModeById",
                             fetchType = FetchType.EAGER))})

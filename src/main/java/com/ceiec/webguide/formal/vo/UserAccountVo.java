@@ -20,8 +20,8 @@ public class UserAccountVo extends UserAccountEntity{
         this.systemMode = systemMode;
     }
 
-    public UserAccountVo(String userId, String userName, String loginName, String password, int role, String jobId, int department, String address, String contact, String signature, String avatar, int deleted, int systemMode) {
-        super(userId, userName, loginName, password, role, jobId, department, address, contact, signature, avatar, deleted);
+    public UserAccountVo(String userId, String userName, String realName, String password, int role, String jobId, int department, String address, String contact, String signature, String avatar, int deleted, int systemMode) {
+        super(userId, userName, realName, password, role, jobId, department, address, contact, signature, avatar, deleted);
         this.systemMode = systemMode;
     }
 

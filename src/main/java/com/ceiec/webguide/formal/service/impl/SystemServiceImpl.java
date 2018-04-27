@@ -1,6 +1,5 @@
 package com.ceiec.webguide.formal.service.impl;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ceiec.webguide.formal.dao.SystemDao;
 import com.ceiec.webguide.formal.entity.SysParamEntity;
@@ -42,18 +41,15 @@ public class SystemServiceImpl implements SystemService {
         JSONObject allParams = new JSONObject();
         allParams.put("guideSites", allWebsites);
         allParams.put("guideType", allGuideTypes);
-        for (SysParamEntity sysParam : sysParams) {
-            allParams.put(sysParam.getParameterName(), sysParam.getValue());
-        }
+        allParams.put("items", sysParams);
         return allParams;
     }
 
     @Override
-    public void updateSysParam(JSONArray paramInfoArray) {
-        for (Object paramInfo : paramInfoArray) {
-            JSONObject paramInfoJson = (JSONObject) paramInfo;
-            String name = paramInfoJson.getString("name");
-            Object value = paramInfoJson.get("value");
+    public void updateSysParam(List<SysParamEntity> paramInfoArray) {
+        for (SysParamEntity sysParamEntity : paramInfoArray) {
+            String name = sysParamEntity.getName();
+            Object value = sysParamEntity.getValue();
             systemDao.updateSysParam(name, value);
         }
     }

@@ -1,7 +1,7 @@
 package com.ceiec.webguide.formal.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.ceiec.webguide.formal.entity.SysParamEntity;
 import com.ceiec.webguide.formal.entity.UserAccountEntity;
 import com.ceiec.webguide.formal.page.PagedItemsVO;
 import com.ceiec.webguide.formal.service.SystemService;
@@ -9,10 +9,9 @@ import com.ceiec.webguide.formal.utils.MessageType;
 import com.ceiec.webguide.formal.utils.ResponseContent;
 import com.ceiec.webguide.formal.vo.SysLogVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * CreateDate: 2018/4/24 <br/>
@@ -33,7 +32,7 @@ public class SystemController {
     }
 
     @PostMapping(value = "/updateSystemInfo")
-    public ResponseContent updateSystemInfo(@RequestBody JSONArray paramInfos){
+    public ResponseContent updateSystemInfo(@RequestBody List<SysParamEntity> paramInfos){
         systemService.updateSysParam(paramInfos);
         return new ResponseContent(MessageType.SUCCESS);
     }
@@ -48,5 +47,11 @@ public class SystemController {
     public ResponseContent getTodaySysLog(@RequestBody JSONObject condition){
         PagedItemsVO<SysLogVO> pagedSysLogs = systemService.getSysLogsWithCondition(condition);
         return new ResponseContent(MessageType.SUCCESS, pagedSysLogs);
+    }
+
+    @GetMapping(value = "/getSystemInfo")
+    public ResponseContent getSysParam(){
+        JSONObject allSysParam = systemService.getAllSysParam();
+        return new ResponseContent(MessageType.SUCCESS, allSysParam);
     }
 }
