@@ -23,19 +23,25 @@ public class UserAccountController {
     UserAccountService userAccountService;
 
 
-    @GetMapping(value = "/getUserInfo/{userId}")
-    public ResponseContent getUserInfo(@PathVariable("userId") String userId) {
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    @GetMapping(value = "/info")
+    public ResponseContent getUserInfo() {
+        String userId = "ABCDEFGHIGKLMNOPQRSTUVWXYZ123456";
         UserAccountVo userAccountVo = userAccountService.findUserAccountById(userId);
         return new ResponseContent(MessageType.SUCCESS, userAccountVo);
     }
 
-    @PostMapping(value = "/updateUserInfo")
+    @PostMapping(value = "/info/update")
     public ResponseContent updateUserInfo(@RequestBody UserAccountEntity userAccount) {
         userAccountService.updateUserAccount(userAccount);
         return new ResponseContent(MessageType.SUCCESS);
     }
 
-    @PostMapping(value = "/updateUserAvatar")
+    @PostMapping(value = "/avatar/update")
     public ResponseContent updateUserAvatar(@RequestBody JSONObject avatarJson) {
         //保留获取userId的逻辑
         //String userId = "1decccc28231490f993102c30b446e0d";
@@ -45,15 +51,5 @@ public class UserAccountController {
         return new ResponseContent(MessageType.SUCCESS, avatarUrl);
     }
 
-    @PostMapping(value = "/addUser")
-    public ResponseContent insertUserAccount(@RequestBody UserAccountEntity userAccount) {
-        String userId = userAccountService.insertUserAccount(userAccount);
-        return new ResponseContent(MessageType.SUCCESS, userId);
-    }
 
-    @DeleteMapping(value = "/deleteUser/{userId}")
-    public ResponseContent deleteUserAccount(@PathVariable("userId") String userId){
-        userAccountService.setUserDeleted(userId);
-        return new ResponseContent(MessageType.SUCCESS);
-    }
 }

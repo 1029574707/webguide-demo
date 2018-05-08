@@ -11,7 +11,5 @@ public class RoleConstant {
 
     public static final int GUIDERROLE = 2;
 
-    public static final int GUIDERINFIXROLE = 3;
-
-    public static final int SUPERADMINROLE = 4;
+    public static final int SUPERADMINROLE = 3;
 }

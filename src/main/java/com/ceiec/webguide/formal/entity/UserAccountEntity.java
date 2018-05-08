@@ -17,7 +17,7 @@ public class UserAccountEntity implements Serializable {
     private String userId;
 
     //the username for login
-    private String userName;
+    private String username;
 
     //the user's real name
     private String realName;
@@ -57,12 +57,12 @@ public class UserAccountEntity implements Serializable {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getRealName() {
@@ -145,9 +145,9 @@ public class UserAccountEntity implements Serializable {
         this.deleted = deleted;
     }
 
-    public UserAccountEntity(String userId, String userName, String realName, String password, Integer role, String jobId, Integer department, String address, String mobile, String signature, String avatar, int deleted) {
+    public UserAccountEntity(String userId, String username, String realName, String password, Integer role, String jobId, Integer department, String address, String mobile, String signature, String avatar, int deleted) {
         this.userId = userId;
-        this.userName = userName;
+        this.username = username;
         this.realName = realName;
         this.password = password;
         this.role = role;
@@ -167,7 +167,7 @@ public class UserAccountEntity implements Serializable {
     public String toString() {
         return "UserAccountEntity{" +
                 "userId='" + userId + '\'' +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", realName='" + realName + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +

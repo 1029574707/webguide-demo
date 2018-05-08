@@ -1,6 +1,7 @@
 package com.ceiec.webguide.formal.dao.provider;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ceiec.webguide.formal.vo.UserListConditionVO;
 import org.apache.ibatis.jdbc.SQL;
 
 import static com.ceiec.webguide.formal.constant.MySqlConstant.SYSTEMLOGTABLE;
@@ -24,21 +25,21 @@ public class SystemProvider {
     }
 
 
-    public String countUsersWithCondition(JSONObject condition) {
+    public String countUsersWithCondition(UserListConditionVO condition) {
         return new SQL() {
             {
                 SELECT("count(*)");
                 FROM(USERACCOUNTTABLE);
-                String keywords = condition.getString("keywords");
+                String keywords = condition.getKeywords();
                 if (keywords != null && !"".equals(keywords)) {
                     WHERE(" user_name LIKE CONCAT ('%', #{keywords}, '%') ");
                     OR();
                     WHERE(" job_number LIKE CONCAT ('%', #{keywords}, '%') ");
                 }
-                Integer role = condition.getInteger("role");
-                if (role != null && role != 0) {
-                    WHERE(" role = #{role} ");
-                }
+                //int role = condition.getRole();
+                //if (role != 0) {
+                //    WHERE(" role = #{role} ");
+                //}
             }
         }.toString();
     }

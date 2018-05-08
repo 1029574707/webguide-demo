@@ -1,11 +1,12 @@
 package com.ceiec.webguide.formal.dao.provider;
 
-import com.alibaba.fastjson.JSONObject;
 import com.ceiec.webguide.formal.entity.UserAccountEntity;
+import com.ceiec.webguide.formal.vo.UserListConditionVO;
 import org.apache.ibatis.jdbc.SQL;
 
 import static com.ceiec.webguide.formal.constant.MySqlConstant.USERACCOUNTTABLE;
 import static com.ceiec.webguide.formal.constant.RoleConstant.*;
+import static com.ceiec.webguide.formal.constant.TestConstant.SYSTEMMODE;
 
 /**
  * CreateDate: 2018/4/23 <br/>
@@ -18,8 +19,8 @@ public class UserAccountProvider {
         return new SQL() {
             {
                 UPDATE(USERACCOUNTTABLE);
-                if (userAccount.getUserName() != null) {
-                    SET(" user_name = #{userName} ");
+                if (userAccount.getUsername() != null) {
+                    SET(" user_name = #{username} ");
                 }
                 if (userAccount.getPassword() != null) {
                     SET(" password = #{password} ");
@@ -52,8 +53,8 @@ public class UserAccountProvider {
                 if (userAccountEntity.getUserId() != null) {
                     VALUES("user_id", "#{userId}");
                 }
-                if (userAccountEntity.getUserName() != null) {
-                    VALUES("user_name", "#{userName}");
+                if (userAccountEntity.getUsername() != null) {
+                    VALUES("user_name", "#{username}");
                 }
                 if (userAccountEntity.getRealName() != null) {
                     VALUES("real_name", "#{realName}");
@@ -71,31 +72,36 @@ public class UserAccountProvider {
         }.toString();
     }
 
-    public String getUsersWithCondition(JSONObject condition) {
+    public String getUsersWithCondition(UserListConditionVO condition) {
         String sql = new SQL() {
             {
                 SELECT("*");
                 FROM(USERACCOUNTTABLE);
-                String keywords = condition.getString("keywords");
+                String keywords = condition.getKeywords();
                 if (keywords != null && !"".equals(keywords)) {
                     WHERE(" (user_name LIKE CONCAT ('%', #{keywords}, '%') OR job_number LIKE CONCAT ('%', #{keywords}, '%')) ");
                 }
-                Integer role = condition.getInteger("role");
-                if (role != null) {
-                    if (role == SUPERADMINROLE) {
-                        WHERE(" role in ( " + ADMINROLE + ", " + GUIDERINFIXROLE + " ) ");
+
+                //超级管理员在混合模式下，可以查看所有引导员信息；在分工模式下，可以查看所有管理员信息；管理员可以查看所有管理员和引导员的信息
+                int role = condition.getRole();
+                int sysMode = SYSTEMMODE;
+                if (role == SUPERADMINROLE) {
+                    //混合模式
+                    if (sysMode == 1) {
+                        WHERE(" role =  " + GUIDERROLE);
+                    } else {
+                        WHERE(" role = " + ADMINROLE);
                     }
-                    if (role == ADMINROLE) {
-                        WHERE(" role in ( " + ADMINROLE + ", " + GUIDERROLE + " ) ");
-                    }
+                } else if (role == ADMINROLE) {
+                    WHERE(" role in ( " + ADMINROLE + ", " + GUIDERROLE + " ) ");
                 }
                 // only select the not deleted accounts
                 WHERE(" deleted = 0 ");
             }
         }.toString();
 
-        Integer start = condition.getInteger("start");
-        Integer size = condition.getInteger("size");
+        Integer start = condition.getStart();
+        Integer size = condition.getSize();
         int startIndex = (start - 1) * size;
 
         sql += " LIMIT " + startIndex + ", " + size;

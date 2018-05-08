@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ceiec.webguide.formal.entity.SysParamEntity;
 import com.ceiec.webguide.formal.entity.UserAccountEntity;
 import com.ceiec.webguide.formal.page.PagedItemsVO;
+import com.ceiec.webguide.formal.vo.ParentVO;
 import com.ceiec.webguide.formal.vo.SysLogVO;
 
 import java.util.List;
@@ -15,11 +16,11 @@ import java.util.List;
  **/
 public interface SystemService {
 
-    PagedItemsVO<UserAccountEntity> getUsersWithCondition(JSONObject condition);
+    PagedItemsVO<UserAccountEntity> getUsersWithCondition(ParentVO condition);
 
     JSONObject getAllSysParam();
 
-    void updateSysParam(List<SysParamEntity> paramInfoJson);
+    void updateSysParam(List<SysParamEntity> params);
 
     PagedItemsVO<SysLogVO> getSysLogsWithCondition(JSONObject condition);
 

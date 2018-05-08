@@ -6,6 +6,7 @@ import com.ceiec.webguide.formal.dao.provider.UserAccountProvider;
 import com.ceiec.webguide.formal.entity.SysParamEntity;
 import com.ceiec.webguide.formal.entity.UserAccountEntity;
 import com.ceiec.webguide.formal.vo.SysLogVO;
+import com.ceiec.webguide.formal.vo.UserListConditionVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -27,10 +28,10 @@ public interface SystemDao {
      */
     @SelectProvider(type = UserAccountProvider.class, method = "getUsersWithCondition")
     @Results({@Result(column = "user_id", property = "userId"),
-            @Result(column = "user_name", property = "userName"),
+            @Result(column = "user_name", property = "username"),
             @Result(column = "real_name", property = "realName"),
             @Result(column = "job_number", property = "jobId")})
-    List<UserAccountEntity> getUsersWithCondition(JSONObject condition);
+    List<UserAccountEntity> getUsersWithCondition(UserListConditionVO condition);
 
     /**
      * get all system parameters
@@ -107,5 +108,5 @@ public interface SystemDao {
      * @return the count of users
      */
     @SelectProvider(type = SystemProvider.class, method = "countUsersWithCondition")
-    Integer countUsersWithCondition(JSONObject condition);
+    Integer countUsersWithCondition(UserListConditionVO condition);
 }
